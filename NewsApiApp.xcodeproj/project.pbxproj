@@ -50,6 +50,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A24C11472A8963D700B71F69 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				A2AE200B2A8934680044B686 /* EmptyView.swift */,
+				A24C11452A895DE900B71F69 /* ApplyButton.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		A2AE1FE82A8930A90044B686 = {
 			isa = PBXGroup;
 			children = (
@@ -93,9 +102,8 @@
 				A2AE1FF62A8930A90044B686 /* MainView.swift */,
 				A2AE20112A893AB10044B686 /* FilterModalView.swift */,
 				A2AE200F2A8939C00044B686 /* ListView.swift */,
-				A2AE200B2A8934680044B686 /* EmptyView.swift */,
 				A2AE200D2A8938EA0044B686 /* DetailView.swift */,
-				A24C11452A895DE900B71F69 /* ApplyButton.swift */,
+				A24C11472A8963D700B71F69 /* Subviews */,
 			);
 			path = View;
 			sourceTree = "<group>";

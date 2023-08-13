@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct FilterModalView: View {
+    @Environment(\.dismiss) var dismiss
     @Binding var filterType: Filters
     @Binding var fromDate: Date
     @Binding var toDate: Date
+    let canPerformSearch: Bool
     var body: some View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {
                     Button("Cancel") {
-                    
+                        dismiss()
                     }
                     Text("resets to default")
                         .font(.caption2)
@@ -25,7 +27,7 @@ struct FilterModalView: View {
                 Spacer()
                 VStack(alignment: .trailing) {
                     Button("Save") {
-                        
+                        dismiss()
                     }
                     Text("doesn't perform search")
                         .font(.caption2)
@@ -55,10 +57,12 @@ struct FilterModalView: View {
             .listStyle(.inset)
             Spacer()
             Button {
-                
+                dismiss()
             } label: {
-                ApplyButton(text: "Apply and Search")
+                ApplyButton(text: "Apply and Search", disabled: !canPerformSearch)
             }
+            .disabled(!canPerformSearch)
+            
 
         }
     }
@@ -66,6 +70,6 @@ struct FilterModalView: View {
 
 struct FilterModalView_Previews: PreviewProvider {
     static var previews: some View {
-        FilterModalView(filterType: .constant(.publishedAt), fromDate: .constant(Date()), toDate: .constant(Date()))
+        FilterModalView(filterType: .constant(.publishedAt), fromDate: .constant(Date()), toDate: .constant(Date()), canPerformSearch: true)
     }
 }

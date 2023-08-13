@@ -42,6 +42,11 @@ extension MainView {
             }
         }
         
+        func clearResults() {
+            didPerformSearch = false
+            articles = []
+        }
+        
     }
     
 }

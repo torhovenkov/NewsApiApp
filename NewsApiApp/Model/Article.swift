@@ -34,17 +34,26 @@ struct Article: Codable, Hashable {
         return URL(string: urlString)
     }
     var publishingDate: Date? {
-        convertStringToDate(date: publishedAt)
-    }
-    
-    private func convertStringToDate(date: String?) -> Date? {
-        guard let date = date else { return nil }
+        guard let date = publishedAt else { return nil }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         if let date = dateFormatter.date(from: date) {
             return date
         }
         return nil
+    }
+    
+    var publishingDateFormatted: String? {
+        guard let date = publishingDate else { return nil }
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd.MM.yyyy"
+        return dateFormatter.string(from: date)
+    }
+    
+    var urlFromString: URL? {
+        guard let urlString = url else { return nil }
+        guard let url = URL(string: urlString) else { return nil }
+        return url
     }
     
 }

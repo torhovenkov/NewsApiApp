@@ -12,27 +12,36 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if !viewModel.didPerformSearch {
+                if viewModel.didPerformSearch && !viewModel.articles.isEmpty {
                     VStack {
-                        ListView(articles: Article.sampleArticles)
+                        ListView(articles: viewModel.articles)
                         
                     }
                 } else {
-                    EmptyView(didSearch: false)
+                    EmptyView(didSearch: viewModel.didPerformSearch)
                 }
                 Spacer()
                 Divider()
                 Button {
                     viewModel.showFilters = true
                 } label: {
-                    ApplyButton(text: "Apply Filter")
+                    ApplyButton(text: "Apply Filter", disabled: false)
                 }.sheet(isPresented: $viewModel.showFilters) {
-                    FilterModalView(filterType: $viewModel.filter, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate)
+                    FilterModalView(filterType: $viewModel.filter, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, canPerformSearch: viewModel.didPerformSearch)
                 }
             }
+            
             .navigationTitle("News")
             .navigationBarTitleDisplayMode(.large)
-            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Type to search")
+            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search news")
+            .onSubmit(of: .search) {
+                viewModel.loadArticles()
+            }
+            .toolbar {
+                Button("Clear") {
+                    viewModel.clearResults()
+                }
+            }
         }
     }
 }
