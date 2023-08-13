@@ -8,14 +8,32 @@
 import SwiftUI
 
 struct MainView: View {
+    @StateObject private var viewModel = ViewModel()
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            Group {
+                if !viewModel.didPerformSearch {
+                    VStack {
+                        ListView(articles: Article.sampleArticles)
+                        Spacer()
+                        Divider()
+                        Button {
+                            //I will show modal
+                        } label: {
+                            HStack {
+                                
+                            }
+                        }
+                        
+                    }
+                } else {
+                    EmptyView(didSearch: false)
+                }
+            }
+            .navigationTitle("News")
+            .navigationBarTitleDisplayMode(.large)
+            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Type to search")
         }
-        .padding()
     }
 }
 
@@ -24,3 +42,5 @@ struct ContentView_Previews: PreviewProvider {
         MainView()
     }
 }
+
+
