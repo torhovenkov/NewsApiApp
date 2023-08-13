@@ -20,9 +20,7 @@ struct ListView: View {
                             .font(.title3)
                             .fontWeight(.medium)
                             .padding(.bottom, 2.0)
-                            .foregroundColor(Color.black)
                         Text(description)
-                            .foregroundColor(Color.black)
                     }
                 }
                 

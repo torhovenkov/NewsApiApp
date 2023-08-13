@@ -11,26 +11,23 @@ struct MainView: View {
     @StateObject private var viewModel = ViewModel()
     var body: some View {
         NavigationView {
-            Group {
+            VStack {
                 if !viewModel.didPerformSearch {
                     VStack {
                         ListView(articles: Article.sampleArticles)
-                        Spacer()
-                        Divider()
-                        Button {
-                            //I will show modal
-                        } label: {
-                            Text("Apply Filter")
-                                .frame(width: 250, height: 50)
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .font(.system(size: 25, weight: .semibold))
-                                .cornerRadius(10)
-                        }
                         
                     }
                 } else {
                     EmptyView(didSearch: false)
+                }
+                Spacer()
+                Divider()
+                Button {
+                    viewModel.showFilters = true
+                } label: {
+                    ApplyButton(text: "Apply Filter")
+                }.sheet(isPresented: $viewModel.showFilters) {
+                    FilterModalView(filterType: $viewModel.filter, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate)
                 }
             }
             .navigationTitle("News")
@@ -45,5 +42,7 @@ struct ContentView_Previews: PreviewProvider {
         MainView()
     }
 }
+
+
 
 

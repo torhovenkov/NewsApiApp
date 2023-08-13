@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A24C11442A89530A00B71F69 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24C11432A89530A00B71F69 /* Filters.swift */; };
+		A24C11462A895DE900B71F69 /* ApplyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24C11452A895DE900B71F69 /* ApplyButton.swift */; };
 		A2AE1FF52A8930A90044B686 /* NewsApiAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AE1FF42A8930A90044B686 /* NewsApiAppApp.swift */; };
 		A2AE1FF72A8930A90044B686 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AE1FF62A8930A90044B686 /* MainView.swift */; };
 		A2AE1FF92A8930AA0044B686 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2AE1FF82A8930AA0044B686 /* Assets.xcassets */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A24C11432A89530A00B71F69 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
+		A24C11452A895DE900B71F69 /* ApplyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyButton.swift; sourceTree = "<group>"; };
 		A2AE1FF12A8930A90044B686 /* NewsApiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2AE1FF42A8930A90044B686 /* NewsApiAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsApiAppApp.swift; sourceTree = "<group>"; };
 		A2AE1FF62A8930A90044B686 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -91,6 +95,7 @@
 				A2AE200F2A8939C00044B686 /* ListView.swift */,
 				A2AE200B2A8934680044B686 /* EmptyView.swift */,
 				A2AE200D2A8938EA0044B686 /* DetailView.swift */,
+				A24C11452A895DE900B71F69 /* ApplyButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -108,6 +113,7 @@
 			children = (
 				A2AE20052A8931620044B686 /* NetworkService.swift */,
 				A2AE20072A8931980044B686 /* Article.swift */,
+				A24C11432A89530A00B71F69 /* Filters.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -183,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2AE20102A8939C00044B686 /* ListView.swift in Sources */,
+				A24C11442A89530A00B71F69 /* Filters.swift in Sources */,
 				A2AE20082A8931980044B686 /* Article.swift in Sources */,
 				A2AE1FF72A8930A90044B686 /* MainView.swift in Sources */,
 				A2AE20062A8931620044B686 /* NetworkService.swift in Sources */,
@@ -191,6 +198,7 @@
 				A2AE1FF52A8930A90044B686 /* NewsApiAppApp.swift in Sources */,
 				A2AE200C2A8934680044B686 /* EmptyView.swift in Sources */,
 				A2AE200A2A8931F30044B686 /* MainViewVM.swift in Sources */,
+				A24C11462A895DE900B71F69 /* ApplyButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

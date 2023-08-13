@@ -12,6 +12,10 @@ extension MainView {
         @Published var filter = Filters.publishedAt
         @Published var articles: [Article] = []
         @Published var didPerformSearch: Bool = false
+        @Published var showFilters: Bool = false
+        @Published var fromDate: Date = Date()
+        @Published var toDate: Date = Date()
+        @Published var didApplyFilters: Bool = false
         var searchText: String = ""
         let allFilters: [Filters] = Filters.allCases
         let networkService = NetworkService()
@@ -36,15 +40,6 @@ extension MainView {
                 let news = try? await networkService.fetchData(article: self.searchQuery, sortBy: sortQuery)
                 self.articles = news?.articles ?? []
             }
-        }
-        
-        
-        enum Filters: String, CaseIterable {
-            /// Default
-            case publishedAt = "Newest"
-            case relevancy = "Relevant"
-            case popularity = "Most popular"
-            
         }
         
     }
