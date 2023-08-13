@@ -29,7 +29,7 @@ struct FilterModalView: View {
                     Button("Save") {
                         dismiss()
                     }
-                    Text("doesn't perform search")
+                    Text("doesn't perform searching")
                         .font(.caption2)
                         .foregroundColor(.gray)
                 }

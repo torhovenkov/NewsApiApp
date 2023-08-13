@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ListView: View {
     let articles: [Article]
+    let dismissSearch: DismissSearchAction?
     var body: some View {
         List(articles , id: \.self) { article in
             NavigationLink {
@@ -26,11 +27,16 @@ struct ListView: View {
                 
             }
         }
+        .onAppear {
+            if let dismiss = dismissSearch {
+                dismiss()
+            }
+        }
     }
 }
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        ListView(articles: Article.sampleArticles)
+        ListView(articles: Article.sampleArticles, dismissSearch: nil)
     }
 }

@@ -7,46 +7,44 @@
 
 import Foundation
 
-extension MainView {
-    @MainActor class ViewModel: ObservableObject {
-        @Published var filter = Filters.publishedAt
-        @Published var articles: [Article] = []
-        @Published var didPerformSearch: Bool = false
-        @Published var showFilters: Bool = false
-        @Published var fromDate: Date = Date()
-        @Published var toDate: Date = Date()
-        @Published var didApplyFilters: Bool = false
-        var searchText: String = ""
-        let allFilters: [Filters] = Filters.allCases
-        let networkService = NetworkService()
-        var searchQuery = ""
-        private var sortQuery: String {
-            switch self.filter {
-            case .popularity :
-                return "popularity"
-            case .publishedAt :
-                return "publishedAt"
-            case .relevancy :
-                return "relevancy"
-            }
+@MainActor class MainViewViewModel: ObservableObject {
+    @Published var filter = Filters.publishedAt
+    @Published var articles: [Article] = []
+    @Published var didPerformSearch: Bool = false
+    @Published var showFilters: Bool = false
+    @Published var fromDate: Date = Date()
+    @Published var toDate: Date = Date()
+    @Published var didApplyFilters: Bool = false
+    var searchText: String = ""
+    let allFilters: [Filters] = Filters.allCases
+    let networkService = NetworkService()
+    var searchQuery = ""
+    private var sortQuery: String {
+        switch self.filter {
+        case .popularity :
+            return "popularity"
+        case .publishedAt :
+            return "publishedAt"
+        case .relevancy :
+            return "relevancy"
         }
-        
-        
-        func loadArticles() {
-            searchQuery = searchText
-            self.didPerformSearch = !searchQuery.isEmpty
-            guard !searchQuery.isEmpty else { return }
-            Task {
-                let news = try? await networkService.fetchData(article: self.searchQuery, sortBy: sortQuery)
-                self.articles = news?.articles ?? []
-            }
-        }
-        
-        func clearResults() {
-            didPerformSearch = false
-            articles = []
-        }
-        
     }
     
+    
+    func loadArticles() {
+        searchQuery = searchText
+        self.didPerformSearch = !searchQuery.isEmpty
+        guard !searchQuery.isEmpty else { return }
+        Task {
+            let news = try? await networkService.fetchData(article: self.searchQuery, sortBy: sortQuery)
+            self.articles = news?.articles ?? []
+        }
+    }
+    
+    func clearResults() {
+        didPerformSearch = false
+        articles = []
+    }
 }
+
+
