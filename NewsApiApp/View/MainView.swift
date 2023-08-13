@@ -20,9 +20,12 @@ struct MainView: View {
                         Button {
                             //I will show modal
                         } label: {
-                            HStack {
-                                
-                            }
+                            Text("Apply Filter")
+                                .frame(width: 250, height: 50)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .font(.system(size: 25, weight: .semibold))
+                                .cornerRadius(10)
                         }
                         
                     }
