@@ -9,7 +9,6 @@ import SwiftUI
 import SafariServices
 
 struct DetailView: View {
-    @Environment(\.openURL) var openUrl
     let article: Article
     var body: some View {
         VStack {
@@ -81,3 +80,4 @@ struct DetailView_Previews: PreviewProvider {
 //source, +
 //published at, +
 //url +
+

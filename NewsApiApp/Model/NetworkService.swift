@@ -22,7 +22,7 @@ struct NetworkService {
             "q" : article,
             "sortBy" : sortBy,
             "apiKey" : apiKey,
-            "pageSize" : "10",
+            "pageSize" : "30",
             "page" : "1"
         ].map{ URLQueryItem(name: $0.key, value: $0.value) }
         

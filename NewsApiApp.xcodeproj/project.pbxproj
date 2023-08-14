@@ -113,8 +113,8 @@
 		A2AE20032A8930EA0044B686 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				A25343252A8A737B004BEF99 /* FilterViewVM.swift */,
 				A25343292A8ACC75004BEF99 /* MainViewVM.swift */,
+				A25343252A8A737B004BEF99 /* FilterViewVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
