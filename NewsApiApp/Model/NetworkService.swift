@@ -16,7 +16,7 @@ struct NetworkService {
         case cannotFetchData
     }
 
-    func fetchData(article: String, sortBy: String) async throws -> News? {
+    func fetchData(article: String, sortBy: String, fromDate: Date? = nil, toDate: Date? = nil) async throws -> News? {
         var urlComponents = URLComponents(string: "https://newsapi.org/v2/everything")!
         urlComponents.queryItems = [
             "q" : article,
@@ -25,6 +25,20 @@ struct NetworkService {
             "pageSize" : "10",
             "page" : "1"
         ].map{ URLQueryItem(name: $0.key, value: $0.value) }
+        
+        if let from = fromDate,
+           let to = toDate {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let fromDate = dateFormatter.string(from: from)
+            let toDate = dateFormatter.string(from: to)
+            let queryItems = [
+                "from" : fromDate,
+                "to" : toDate
+            ].map{ URLQueryItem(name: $0.key, value: $0.value) }
+            urlComponents.queryItems! += queryItems
+        }
+        print(urlComponents.url!)
         
         let (data, response) = try await URLSession.shared.data(from: urlComponents.url!)
         guard let httpResponse = response as? HTTPURLResponse,

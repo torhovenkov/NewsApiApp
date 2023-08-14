@@ -47,9 +47,7 @@ struct SearchableView: View {
                 }
             } else {
                 EmptyView(didSearch: viewModel.didPerformSearch)
-                    .transaction {
-                        $0.animation = .default.speed(1.4)
-                    }
+                    .transaction { $0.animation = .default.speed(1.4) }
             }
             Spacer()
             Divider()

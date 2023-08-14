@@ -29,13 +29,21 @@ import Foundation
             return "relevancy"
         }
     }
+    var fromQueryDate: Date? {
+        guard didApplyDate else { return nil }
+        return fromDate
+    }
+    var toQueryDate: Date? {
+        guard didApplyDate else { return nil }
+        return toDate
+    }
     
     
     func loadArticles() {
         self.didPerformSearch = !savedSearchQuery.isEmpty
         guard !savedSearchQuery.isEmpty else { return }
         Task {
-            let news = try? await networkService.fetchData(article: self.savedSearchQuery, sortBy: sortQuery)
+            let news = try? await networkService.fetchData(article: savedSearchQuery, sortBy: sortQuery, fromDate: fromQueryDate, toDate: toQueryDate)
             self.articles = news?.articles ?? []
         }
     }
