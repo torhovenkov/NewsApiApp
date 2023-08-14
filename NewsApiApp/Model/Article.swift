@@ -45,8 +45,9 @@ struct Article: Codable, Hashable {
     
     var publishingDateFormatted: String? {
         guard let date = publishingDate else { return nil }
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd.MM.yyyy"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         return dateFormatter.string(from: date)
     }
     

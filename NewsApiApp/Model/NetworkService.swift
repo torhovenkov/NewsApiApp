@@ -38,7 +38,6 @@ struct NetworkService {
             ].map{ URLQueryItem(name: $0.key, value: $0.value) }
             urlComponents.queryItems! += queryItems
         }
-        print(urlComponents.url!)
         
         let (data, response) = try await URLSession.shared.data(from: urlComponents.url!)
         guard let httpResponse = response as? HTTPURLResponse,

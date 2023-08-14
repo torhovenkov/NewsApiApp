@@ -8,20 +8,15 @@
 import SwiftUI
 
 struct EmptyView: View {
-    @State var didSearch: Bool
+    let text: String
     var body: some View {
         VStack  {
-            Group {
-                if didSearch{
-                    Text("Cannot find results")
-                } else {
-                    Text("Type for search")
-                }
-            }
+            Text(text)
             .font(Font.largeTitle)
             .foregroundColor(Color.gray)
             .padding(.top, 40)
             Spacer()
         }
+        .transaction { $0.animation = .default.speed(1.4) } //Fixes broken animation once tapped on searchbar
     }
 }

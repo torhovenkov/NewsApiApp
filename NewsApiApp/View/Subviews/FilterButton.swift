@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
-
-struct ApplyButton: View {
+/// Appearance for buttons
+struct FilterButton: View {
     let text: String
-    let disabled: Bool
+    var disabled: Bool = false
     var body: some View {
         Text(text)
             .frame(width: 250, height: 50)

@@ -9,11 +9,11 @@ import Foundation
 
 extension FilterModalView {
   @MainActor class FilterViewVM: ObservableObject {
-        @Published var applyDate: Bool = false
-        @Published var fromDate = Date()
-        @Published var toDate = Date()
-        @Published var filter = Filters.publishedAt
-        
+      @Published var applyDate: Bool = false
+      @Published var fromDate: Date = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+      @Published var toDate: Date = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+      @Published var filter = Filters.publishedAt
+      
         func resetToDefault() {
             applyDate = false
             fromDate = Date()
