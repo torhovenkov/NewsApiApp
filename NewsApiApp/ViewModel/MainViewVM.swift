@@ -14,11 +14,11 @@ import Foundation
     @Published var showFilters: Bool = false
     @Published var fromDate: Date = Date()
     @Published var toDate: Date = Date()
-    @Published var didApplyFilters: Bool = false
+    @Published var didApplyDate: Bool = false
     var searchText: String = ""
     let allFilters: [Filters] = Filters.allCases
     let networkService = NetworkService()
-    var searchQuery = ""
+    var savedSearchQuery = ""
     private var sortQuery: String {
         switch self.filter {
         case .popularity :
@@ -32,11 +32,10 @@ import Foundation
     
     
     func loadArticles() {
-        searchQuery = searchText
-        self.didPerformSearch = !searchQuery.isEmpty
-        guard !searchQuery.isEmpty else { return }
+        self.didPerformSearch = !savedSearchQuery.isEmpty
+        guard !savedSearchQuery.isEmpty else { return }
         Task {
-            let news = try? await networkService.fetchData(article: self.searchQuery, sortBy: sortQuery)
+            let news = try? await networkService.fetchData(article: self.savedSearchQuery, sortBy: sortQuery)
             self.articles = news?.articles ?? []
         }
     }

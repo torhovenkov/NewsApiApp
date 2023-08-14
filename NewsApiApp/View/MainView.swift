@@ -16,6 +16,7 @@ struct MainView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search news")
                 .onSubmit(of: .search) {
+                    viewModel.savedSearchQuery = viewModel.searchText
                     viewModel.loadArticles()
                 }
         }
@@ -32,11 +33,14 @@ struct ContentView_Previews: PreviewProvider {
 struct SearchableView: View {
     @ObservedObject var viewModel: MainViewViewModel
     @Environment(\.dismissSearch) var dismissSearch
+    @State var searchWithFilters = false
     var body: some View {
         VStack {
             if viewModel.didPerformSearch && !viewModel.articles.isEmpty {
                 VStack {
+                    Text("Results for: \(viewModel.savedSearchQuery)")
                     ListView(articles: viewModel.articles, dismissSearch: dismissSearch)
+                        .listStyle(.inset)
                 }
                 .toolbar {
                     Button("Clear") { viewModel.clearResults() }
@@ -54,7 +58,13 @@ struct SearchableView: View {
             } label: {
                 ApplyButton(text: "Apply Filter", disabled: false)
             }.sheet(isPresented: $viewModel.showFilters) {
-                FilterModalView(filterType: $viewModel.filter, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, canPerformSearch: viewModel.didPerformSearch)
+                FilterModalView(filterType: $viewModel.filter, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, applyDate: $viewModel.didApplyDate, performSearch: $searchWithFilters, canPerformSearch: viewModel.didPerformSearch)
+            }
+        }
+        .onChange(of: searchWithFilters) { can in
+            searchWithFilters = false
+            if can {
+                viewModel.loadArticles()
             }
         }
         
