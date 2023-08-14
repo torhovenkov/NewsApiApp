@@ -53,14 +53,14 @@ struct FilterModalView: View {
                 }
                 if viewModel.applyDate {
                     Group {
-                        
-                            DatePicker(selection: $viewModel.fromDate, displayedComponents: .date) {
-                                Text("From:")
-                            }
-                            DatePicker(selection: $viewModel.toDate, displayedComponents: .date) {
-                                Text("To:")
-                            }
+                        DatePicker(selection: $viewModel.fromDate, in: viewModel.dateClosedRange, displayedComponents: .date) {
+                            Label("From:", systemImage: "calendar")
                         }
+                        DatePicker(selection: $viewModel.toDate, in: viewModel.dateClosedRange, displayedComponents: .date) {
+                            Label("To:", systemImage: "calendar")
+                        }
+                        }
+                    .labelStyle(.titleOnly)
                         .datePickerStyle(.compact)
                         .disabled(!viewModel.applyDate)
                         .foregroundColor(viewModel.applyDate ? Color.primary : Color.gray)
