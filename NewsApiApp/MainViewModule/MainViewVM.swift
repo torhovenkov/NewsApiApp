@@ -7,8 +7,8 @@
 
 import Foundation
 
-extension CustomMainView {
-    @MainActor class CustomMainViewVM: ObservableObject {
+extension MainView {
+    @MainActor class MainViewVM: ObservableObject {
         @Published var searchText = ""
         @Published var articles: [Article] = []
         var didSearch: Bool = false

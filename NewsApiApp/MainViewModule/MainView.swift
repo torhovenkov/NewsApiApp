@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct CustomMainView: View {
-    @StateObject var viewModel = CustomMainViewVM()
+struct MainView: View {
+    @StateObject var viewModel = MainViewVM()
     @State var showFilters = false
     @State var userApplyFilters = false
     var body: some View {
@@ -65,7 +65,7 @@ struct CustomMainView: View {
     //MARK: - List view
     
     struct CustomListView: View {
-        @EnvironmentObject var viewModel: CustomMainViewVM
+        @EnvironmentObject var viewModel: MainViewVM
         var body: some View {
             if !viewModel.didSearch {
                 EmptyView(text: "Type to search")
@@ -88,7 +88,7 @@ struct CustomMainView: View {
 
 struct CustomMainView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomMainView()
+        MainView()
     }
 }
 
