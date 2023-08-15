@@ -23,7 +23,7 @@ struct MainView: View {
     }
 }
 
-struct MainView2_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
     }
@@ -33,6 +33,7 @@ extension MainView {
         @ObservedObject var viewModel: MainViewVM
         @State var showFiltersView: Bool = false
         @State var performSearch: Bool = false
+        @State var applyDate: Bool = false
         @Environment(\.dismissSearch) var dismissSearch
         var body: some View {
             VStack{
@@ -53,7 +54,7 @@ extension MainView {
                     FilterButton(text: "Filters")
                 }
                 .sheet(isPresented: $showFiltersView) {
-                    FilterModalView(filterType: $viewModel.filter, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, performSearch: $performSearch, canPerformSearch: viewModel.didSearch || !viewModel.searchText.isEmpty)
+                    FilterModalView(filterType: $viewModel.filter, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, performSearch: $performSearch, canPerformSearch: viewModel.didSearch || !viewModel.searchText.isEmpty, applyDate: $applyDate)
                 }
                 .onChange(of: performSearch) { newValue in
                     if !viewModel.didSearch {

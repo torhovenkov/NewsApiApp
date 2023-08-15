@@ -15,6 +15,7 @@ struct FilterModalView: View {
     @Binding var toDate: Date?
     @Binding var performSearch: Bool
     let canPerformSearch: Bool
+    @Binding var applyDate: Bool
     var body: some View {
         VStack {
             HStack {
@@ -47,11 +48,11 @@ struct FilterModalView: View {
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
                 HStack {
-                    Toggle(isOn: $viewModel.applyDate) {
+                    Toggle(isOn: $applyDate) {
                         Text("Search for specific dates")
                     }
                 }
-                if viewModel.applyDate {
+                if applyDate {
                     Group {
                         DatePicker(selection: $viewModel.fromDate, in: viewModel.dateClosedRange, displayedComponents: .date) {
                             Label("From:", systemImage: "calendar")
@@ -62,13 +63,14 @@ struct FilterModalView: View {
                         }
                     .labelStyle(.titleOnly)
                         .datePickerStyle(.compact)
-                        .disabled(!viewModel.applyDate)
-                        .foregroundColor(viewModel.applyDate ? Color.primary : Color.gray)
+                        .disabled(!applyDate)
+                        .foregroundColor(applyDate ? Color.primary : Color.gray)
                 }
                 
                 HStack {
                     Button {
                         viewModel.resetToDefault()
+                        applyDate = false
                     } label: {
                         Text("Reset")
                     }
@@ -94,17 +96,20 @@ struct FilterModalView: View {
     }
     func save() {
         filterType = viewModel.filter
-        fromDate = viewModel.applyDate ? viewModel.fromDate : nil
-        toDate = viewModel.applyDate ? viewModel.toDate : nil
+        fromDate = applyDate ? viewModel.fromDate : nil
+        toDate = applyDate ? viewModel.toDate : nil
     }
     func load() {
         viewModel.filter = filterType
+//        viewModel.applyDate = applyDate
+        viewModel.fromDate = fromDate ?? viewModel.fromDate
+        viewModel.toDate = toDate ?? viewModel.toDate
     }
 }
 
 struct FilterModalView_Previews: PreviewProvider {
     static var previews: some View {
-        FilterModalView(filterType: .constant(.publishedAt), fromDate: .constant(Date()), toDate: .constant(Date()), performSearch: .constant(false), canPerformSearch: true)
+        FilterModalView(filterType: .constant(.publishedAt), fromDate: .constant(Date()), toDate: .constant(Date()), performSearch: .constant(false), canPerformSearch: true, applyDate: .constant(true))
     }
 }
 
