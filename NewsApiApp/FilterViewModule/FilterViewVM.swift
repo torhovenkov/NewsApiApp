@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension FilterModalView {
+extension FilterView {
   @MainActor class FilterViewVM: ObservableObject {
       @Published var fromDate: Date = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
       @Published var toDate: Date = Calendar.current.date(byAdding: .day, value: -1, to: Date())!

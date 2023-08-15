@@ -1,23 +1,23 @@
 //
-//  MainViewVM2.swift
+//  CustomMainViewVM.swift
 //  NewsApiApp
 //
-//  Created by Vladyslav Torhovenkov on 14.08.2023.
+//  Created by Vladyslav Torhovenkov on 15.08.2023.
 //
 
 import Foundation
 
-extension MainView {
-    @MainActor class MainViewVM: ObservableObject {
-        @Published var didSearch: Bool = false
+extension CustomMainView {
+    @MainActor class CustomMainViewVM: ObservableObject {
         @Published var searchText = ""
         @Published var articles: [Article] = []
-        
+        var didSearch: Bool = false
+        var didFinishLoading = false
         let networkService = NetworkService()
         var filter = Filters.publishedAt
-        var savedSearchQuery = ""
         var fromDate: Date?
         var toDate: Date?
+        var applyDate = false
         
         private var sortQuery: String {
             switch self.filter {
@@ -31,21 +31,19 @@ extension MainView {
         }
         
         func loadArticles() {
-            guard !savedSearchQuery.isEmpty else { return }
+            guard !searchText.isEmpty else { return }
+            self.didFinishLoading = false
+            self.didSearch = true
             Task {
-                let news = try? await networkService.fetchData(article: savedSearchQuery, sortBy: sortQuery, fromDate: fromDate, toDate: toDate)
+                let news = try? await networkService.fetchData(article: searchText, sortBy: sortQuery, fromDate: fromDate, toDate: toDate)
                 self.articles = news?.articles ?? []
-                self.didSearch = true
+                self.didFinishLoading = true
             }
         }
         
         func clearResults() {
             didSearch = false
             articles = []
-        }
-        
-        func saveSearchQuery() {
-            savedSearchQuery = searchText
         }
     }
 }

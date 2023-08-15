@@ -11,7 +11,7 @@ import SwiftUI
 struct NewsApiAppApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView()
+            CustomMainView()
         }
     }
 }

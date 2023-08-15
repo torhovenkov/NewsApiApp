@@ -12,7 +12,7 @@ struct Article: Codable, Hashable {
         lhs.url == rhs.url && lhs.publishedAt == rhs.publishedAt
     }
     
-    static let sampleArticle = Article(source: Source(id: nil, name: "BBC News"), author: "Author", title: "Some very important news", description: "Some very important news are here, click to see more.", url: "https://www.bbc.com/news/av/world-europe-66423973", urlToImage: "https://www.svetandroida.cz/media/2023/08/macbook-air-m2-slevy.jpg", publishedAt: "2023-07-11T15:30:00Z", content: "The Soviet-era emblem on Kyiv's Motherland statue has been replaced with the Ukrainian coat of arms.\r\nThe tryzub emblem is said to represent a stronger self-identity for Ukraine. \r\nThe works are set … [+61 chars]")
+    static let sampleArticle = Article(source: Source(id: nil, name: "BBC News"), author: "Author", title: "Some very important news", description: "Some very important news are here, click to see more.", url: "https://www.bbc.com/news/av/world-europe-66423973", urlToImage: "https://www.svetandroida.cz/media/2023/08/macbook-air-m2-slevy.jpg", publishedAt: "2023-07-11T15:30:00Z")
     static var sampleArticles: [Article] {
         var articles: [Article] = []
         for num in 0..<10 {
@@ -27,7 +27,6 @@ struct Article: Codable, Hashable {
     var url: String?
     let urlToImage: String?
     let publishedAt: String?
-    let content: String?
     
     var imageUrl: URL? {
         guard let urlString = urlToImage else { return nil }

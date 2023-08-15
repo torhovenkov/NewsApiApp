@@ -33,15 +33,10 @@ struct DetailView: View {
                     Text(title)
                         .font(.title2)
                 }
-                Group {
-                    if let description = article.description {
-                        Text(description)
-                    }
-                    if let content = article.content {
-                        Text(content)
-                    }
+                if let description = article.description {
+                    Text(description)
+                        .padding()
                 }
-                .padding()
                 if let author = article.author {
                     HStack {
                         Spacer()
@@ -72,12 +67,4 @@ struct DetailView_Previews: PreviewProvider {
         DetailView(article: Article.sampleArticle)
     }
 }
-//image, +
-//title, +
-//description, +
-//content, +
-//author,
-//source, +
-//published at, +
-//url +
-
+//image, title, description, author, source, published at

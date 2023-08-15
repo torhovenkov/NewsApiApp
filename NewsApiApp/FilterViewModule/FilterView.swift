@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FilterModalView: View {
+struct FilterView: View {
     @StateObject var viewModel = FilterViewVM()
     @Environment(\.dismiss) var dismiss
     @Binding var filterType: Filters
@@ -15,30 +15,22 @@ struct FilterModalView: View {
     @Binding var toDate: Date?
     @Binding var performSearch: Bool
     let canPerformSearch: Bool
-    @Binding var applyDate: Bool
+    @State var applyDate = false
     var body: some View {
         VStack {
             HStack {
-                VStack(alignment: .leading) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
-                    Text("Cancel changes")
-                        .font(.caption2)
-                        .foregroundColor(.gray)
+                Button("Cancel") {
+                    dismiss()
                 }
                 Spacer()
-                VStack(alignment: .trailing) {
-                    Button("Save") {
-                        save()
-                        dismiss()
-                    }
-                    Text("doesn't perform searching")
-                        .font(.caption2)
-                        .foregroundColor(.gray)
+                Button("Apply") {
+                    save()
+                    dismiss()
+                    performSearch.toggle()
                 }
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.top)
             List {
                 Picker("Sort By", selection: $viewModel.filter.animation()) {
                     ForEach(Filters.allCases, id: \.self) {
@@ -60,11 +52,11 @@ struct FilterModalView: View {
                         DatePicker(selection: $viewModel.toDate, in: viewModel.dateClosedRange, displayedComponents: .date) {
                             Label("To:", systemImage: "calendar")
                         }
-                        }
+                    }
                     .labelStyle(.titleOnly)
-                        .datePickerStyle(.compact)
-                        .disabled(!applyDate)
-                        .foregroundColor(applyDate ? Color.primary : Color.gray)
+                    .datePickerStyle(.compact)
+                    .disabled(!applyDate)
+                    .foregroundColor(applyDate ? Color.primary : Color.gray)
                 }
                 
                 HStack {
@@ -79,16 +71,6 @@ struct FilterModalView: View {
                 .frame(maxWidth: .infinity)
             }
             .listStyle(.insetGrouped)
-            Button {
-                save()
-                performSearch = true
-                dismiss()
-            } label: {
-                FilterButton(text: "Apply and Search", disabled: !canPerformSearch)
-            }
-            .disabled(!canPerformSearch)
-            
-            
         }
         .onAppear {
             load()
@@ -101,15 +83,14 @@ struct FilterModalView: View {
     }
     func load() {
         viewModel.filter = filterType
-//        viewModel.applyDate = applyDate
         viewModel.fromDate = fromDate ?? viewModel.fromDate
         viewModel.toDate = toDate ?? viewModel.toDate
     }
 }
 
-struct FilterModalView_Previews: PreviewProvider {
+struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
-        FilterModalView(filterType: .constant(.publishedAt), fromDate: .constant(Date()), toDate: .constant(Date()), performSearch: .constant(false), canPerformSearch: true, applyDate: .constant(true))
+        FilterView(filterType: .constant(.publishedAt), fromDate: .constant(Date()), toDate: .constant(Date()), performSearch: .constant(false), canPerformSearch: true, applyDate: false)
     }
 }
 
